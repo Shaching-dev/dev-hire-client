@@ -56,8 +56,7 @@ const AuthProvider = ({ children }) => {
 
   const userSignOut = async () => {
     try {
-      const res = await signOut(auth);
-      return res;
+      await signOut(auth);
     } catch (error) {
       console.log(error);
     }
@@ -69,6 +68,7 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    setAuthLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setAuthLoading(false);

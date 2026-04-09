@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../Logo/Logo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth/useAuth";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { user, userSignOut } = useAuth();
@@ -40,13 +41,15 @@ const Navbar = () => {
     try {
       await userSignOut();
       // console.log(res.user);
+      toast.success(`Sign out successfully`);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      toast.error(`${error}`);
     }
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-md px-4">
+    <div className="navbar bg-base-100 shadow-md px-4 sticky top-0 z-50">
       {/* LEFT */}
       <div className="navbar-start">
         {/* MOBILE MENU */}
@@ -77,7 +80,7 @@ const Navbar = () => {
       </div>
 
       {/* CENTER MENU (DESKTOP) */}
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden md:flex lg:flex">
         <ul className="menu menu-horizontal gap-4 px-1">{links}</ul>
       </div>
 
