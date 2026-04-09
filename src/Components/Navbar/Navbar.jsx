@@ -3,6 +3,7 @@ import Logo from "../Logo/Logo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 const Navbar = () => {
   const { user, userSignOut } = useAuth();
@@ -14,10 +15,40 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li>
-        <NavLink to="/developers" className={navLinkClass}>
+      <li className="relative group">
+        <NavLink
+          to="/developers"
+          className={`${navLinkClass} flex items-center gap-1`}>
           Developers
+          <MdKeyboardArrowDown />
         </NavLink>
+
+        {/* DROPDOWN */}
+        <ul className="absolute top-10 left-0 mt-2 w-52 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-0 translate-y-2 transition-all duration-300 z-50">
+          <li>
+            <Link
+              to="/developers/web"
+              className="block px-4 py-2 hover:bg-gray-100">
+              Web Developer
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="/developers/react"
+              className="block px-4 py-2 hover:bg-gray-100">
+              React Developer
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="/developers/python"
+              className="block px-4 py-2 hover:bg-gray-100">
+              Python Developer
+            </Link>
+          </li>
+        </ul>
       </li>
       <li>
         <NavLink to="/jobs" className={navLinkClass}>

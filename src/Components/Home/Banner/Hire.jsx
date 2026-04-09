@@ -84,9 +84,9 @@ const Hire = () => {
         Hire Talents & Experts
       </h3>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5 py-3">
         {talents.map((talent) => (
-          <div className="bg-white/50 rounded-2xl py-6">
+          <div className="bg-white/50 rounded-2xl ">
             <div className=" flex flex-col justify-center items-center">
               <img className="w-20 rounded-full" src={talent.image} alt="" />
               <h3 className="flex items-center gap-5">
@@ -99,6 +99,11 @@ const Hire = () => {
             <div className="flex justify-between px-10">
               <span>{talent.perHour}</span>
               <span>{talent.experience}</span>
+            </div>
+            <div className="text-center px-3 my-3">
+              <button className="btn w-full bg-gray-100 border-2 border-gray-300 outline-0 rounded-3xl hover:border-green-500 hover:text-green-500 duration-300">
+                View Details
+              </button>
             </div>
           </div>
         ))}
