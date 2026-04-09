@@ -4,6 +4,11 @@ import Home from "../Components/Home/Home";
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
 import Login from "../Layout/AuthLayout/auth/Login/Login";
 import Register from "../Layout/AuthLayout/auth/Register/Register";
+import Developers from "../Pages/Developers/Developers";
+import Jobs from "../Pages/Jobs/Jobs";
+import Contact from "../Pages/Contact/Contact";
+import About from "../Pages/About/About";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +18,27 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+
+      {
+        path: "/developers",
+        element: (
+          <PrivateRoute>
+            <Developers />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/jobs",
+        Component: Jobs,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
+      },
+      {
+        path: "/about",
+        Component: About,
       },
     ],
   },
