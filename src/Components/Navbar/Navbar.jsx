@@ -9,8 +9,8 @@ const Navbar = () => {
 
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? "text-primary font-semibold border-b-2 border-primary"
-      : "text-secondary font-semibold hover:text-primary transition";
+      ? "text-gray-700 font-semibold border-b-2 border-gray-800"
+      : "text-green-600 font-semibold hover:text-primary transition";
 
   const links = (
     <>
@@ -49,7 +49,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-md px-4 sticky top-0 z-50">
+    <div className="navbar bg-white/50 shadow-md px-4 sticky top-0 z-50">
       {/* LEFT */}
       <div className="navbar-start">
         {/* MOBILE MENU */}

@@ -25,7 +25,7 @@ const Banner = () => {
 
         <p className="text-gray-200 mb-8 text-sm md:text-lg max-w-xl">
           Getting a new job is never easy. Check what new jobs we have in store
-          for you on Job Stock.
+          for you on Hiring.com
         </p>
 
         {/* SearchBar inside content */}
