@@ -2,28 +2,34 @@ import React, { useState } from "react";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useForm } from "react-hook-form";
-import useAuth from "../../../../hooks/useRole/useAuth";
+import useAuth from "../../../../hooks/useAuth/useAuth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Login = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm();
 
+  const location = useLocation();
+  // const from = location.state?.from || "/";
+  const from = location?.state?.from || "/";
+  const navigate = useNavigate();
+
+  // console.log("in the login page", location);
+
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const { signInWithEmail } = useAuth();
 
   const handleLoginWithEmail = async (data) => {
     setIsSubmitting(true);
     try {
       const res = await signInWithEmail(data.email, data.password);
-      console.log(res.user);
+      // console.log(res.user);
+      navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
     } finally {
@@ -112,6 +118,7 @@ const Login = () => {
           <p className="text-[16px] font-bold">
             New to DevHire ? please{" "}
             <Link
+              state={location?.state}
               to={"/auth/register"}
               className="text-secondary hover:border-b-2">
               Register

@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../SocialLogin/SocialLogin";
-import useAuth from "../../../../hooks/useRole/useAuth";
+import useAuth from "../../../../hooks/useAuth/useAuth";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import imageIcon from "../../../../assets/image-upload-icon.png";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Register = () => {
   const [preview, setPreview] = useState(null);
   const [fileError, setFileError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from || "/";
 
   const {
     register,
@@ -76,6 +79,9 @@ const Register = () => {
         displayName: data.name,
         photoURL: photoURL,
       });
+
+      navigate(from, { replace: true });
+
       reset();
     } catch (error) {
       console.log(error);
@@ -259,6 +265,7 @@ const Register = () => {
           <p className="text-[16px] font-bold">
             Already have an account ? please{" "}
             <Link
+              state={location?.state}
               className="text-secondary hover:border-b-2"
               to={"/auth/login"}>
               Login

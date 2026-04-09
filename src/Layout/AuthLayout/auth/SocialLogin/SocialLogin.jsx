@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import useAuth from "../../../../hooks/useRole/useAuth";
+import useAuth from "../../../../hooks/useAuth/useAuth";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const SocialLogin = () => {
