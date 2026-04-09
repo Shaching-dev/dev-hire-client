@@ -8,6 +8,7 @@ import imageIcon from "../../../../assets/image-upload-icon.png";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [preview, setPreview] = useState(null);
@@ -74,17 +75,19 @@ const Register = () => {
       );
       const photoURL = cloudinaryRes.data.secure_url;
       const res = await registerWithEmail(data.email, data.password);
-      console.log(res.user);
+      // console.log(res.user);
       await updateUser({
         displayName: data.name,
         photoURL: photoURL,
       });
 
+      toast.success(`Successfully regsitered ${res.user.displayName}`);
       navigate(from, { replace: true });
 
       reset();
     } catch (error) {
       console.log(error);
+      toast.error(`${error}`);
     } finally {
       setIsSubmitting(false);
     }

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../../hooks/useAuth/useAuth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const {
@@ -28,10 +29,11 @@ const Login = () => {
     setIsSubmitting(true);
     try {
       const res = await signInWithEmail(data.email, data.password);
-      // console.log(res.user);
+      toast.success(`Welcome ${res.user.displayName || ""}`);
       navigate(from, { replace: true });
-    } catch (error) {
-      console.log(error);
+    } catch {
+      // console.log(error);
+      toast.error("Invalid email or password ❌");
     } finally {
       setIsSubmitting(false);
     }

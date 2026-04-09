@@ -83,11 +83,6 @@ const Navbar = () => {
 
       {/* RIGHT SIDE */}
       <div className="navbar-end gap-3">
-        {/* Optional Button */}
-        <button className="btn btn-primary hidden sm:inline-flex">
-          Hire Developer
-        </button>
-
         {/* AVATAR */}
         <div className="dropdown dropdown-end">
           <div
