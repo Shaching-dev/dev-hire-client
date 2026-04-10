@@ -9,6 +9,7 @@ import Jobs from "../Pages/Jobs/Jobs";
 import Contact from "../Pages/Contact/Contact";
 import About from "../Pages/About/About";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,17 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+    ],
+  },
+
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "profile",
+        Component: <h2>Profile</h2>,
       },
     ],
   },
