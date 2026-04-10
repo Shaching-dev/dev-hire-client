@@ -89,21 +89,19 @@ const Register = () => {
         displayName: data.name,
         email: data.email,
         photoURL: photoURL,
-        password: data.password,
-        WorkStatus: data.workStatus,
+        uid: res.user.uid,
+        role: data.workStatus,
+        createdAt: new Date(),
       };
 
-      console.log(data.workStatus);
+      const dbRes = await axiosSecure.post("/users", userInfo);
 
-      await axiosSecure.post("/users", userInfo).then((res) => {
-        if (res.data.insertedId) {
-          console.log("user saved in the db");
-        }
-      });
+      if (!dbRes.data.success) {
+        throw new Error("DB save failed");
+      }
 
-      toast.success(`Successfully regsitered ${res.user.displayName}`);
+      toast.success(`Welcome ${data.name}`);
       navigate(from, { replace: true });
-
       reset();
     } catch (error) {
       console.log(error);
