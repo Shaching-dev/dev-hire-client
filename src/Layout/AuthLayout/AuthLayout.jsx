@@ -6,26 +6,30 @@ import Logo from "../../Components/Logo/Logo";
 const AuthLayout = () => {
   return (
     <div
-      className="min-h-screen w-full flex items-center justify-center relative bg-cover bg-center bg-no-repeat p-4"
+      className="min-h-screen w-full flex items-center justify-center relative bg-cover bg-center bg-no-repeat p-4 md:p-6 lg:p-8"
       style={{
         backgroundImage: `url(${authImage})`,
       }}>
-      {/* Darker Overlay for better contrast */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+      {/* Enhanced Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50 backdrop-blur-[3px]" />
 
-      <div className="relative z-10 w-full max-w-md">
-        {/* Logo Section */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-white/90 p-3 rounded-xl shadow-lg">
+      <div className="relative z-10 w-full max-w-lg mx-auto">
+        {/* Logo */}
+        <div className="flex justify-center mb-8 md:mb-10">
+          <div className="bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-white/30">
             <Logo />
           </div>
         </div>
 
-        {/* Main Card Container */}
-        <main className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden border border-white/20">
-          {/* The form from Outlet will render here */}
+        {/* Glassmorphic Card */}
+        <main className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/30 overflow-hidden">
           <Outlet />
         </main>
+
+        {/* Subtle footer text (optional) */}
+        <p className="text-center text-white/70 text-sm mt-6 font-medium">
+          © 2026 Dev Hire • Connecting top developers
+        </p>
       </div>
     </div>
   );
