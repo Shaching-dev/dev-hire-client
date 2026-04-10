@@ -10,6 +10,7 @@ import Contact from "../Pages/Contact/Contact";
 import About from "../Pages/About/About";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
+import Profile from "../Layout/DashboardLayout/Dashboard/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -61,11 +62,15 @@ export const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "profile",
-        Component: <h2>Profile</h2>,
+        Component: Profile,
       },
     ],
   },

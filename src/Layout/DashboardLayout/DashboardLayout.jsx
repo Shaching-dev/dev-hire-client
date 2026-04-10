@@ -6,8 +6,8 @@ import { NavLink, Outlet } from "react-router";
 const DashboardLayout = () => {
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? "text-gray-700 font-semibold border-b-2 border-gray-800"
-      : "text-green-600 font-semibold hover:text-primary transition";
+      ? "text-green-700 font-semibold border-b-2 border-green-800"
+      : "text-gray[-600 font-semibold hover:text-primary transition";
 
   return (
     <div className="drawer lg:drawer-open">
@@ -54,7 +54,7 @@ const DashboardLayout = () => {
           className="drawer-overlay"></label>
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
-          <ul className="menu w-full grow">
+          <ul className="menu w-full grow space-y-5">
             {/* List item */}
             <li>
               <NavLink className={`${navLinkClass} cursor-pointer`} to={"/"}>
