@@ -25,6 +25,7 @@ const SocialLogin = () => {
         displayName: res.user.displayName,
         email: res.user.email,
         photoURL: res.user.photoURL,
+        uid: res.user.uid,
         createdAt: new Date(),
       };
 
