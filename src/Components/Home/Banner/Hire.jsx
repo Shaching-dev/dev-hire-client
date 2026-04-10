@@ -85,8 +85,8 @@ const Hire = () => {
       </h3>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5 py-3">
-        {talents.map((talent) => (
-          <div className="bg-white/50 rounded-2xl ">
+        {talents.map((talent, index) => (
+          <div key={index} className="bg-white/50 rounded-2xl ">
             <div className=" flex flex-col justify-center items-center">
               <img className="w-20 rounded-full" src={talent.image} alt="" />
               <h3 className="flex items-center gap-5">

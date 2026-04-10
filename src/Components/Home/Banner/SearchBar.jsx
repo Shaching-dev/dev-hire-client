@@ -13,11 +13,11 @@ const SearchBar = () => {
           <input
             type="text"
             placeholder="Skills, Designations, Keyword"
-            className="flex-1 w-full px-4 py-3 border rounded-md focus:outline-none"
+            className="flex-1 w-full px-4 py-3 border-0 rounded-md focus:outline-none"
           />
 
           {/* Select 1 */}
-          <select className="flex-1 w-full px-4 py-3 border rounded-md">
+          <select className="flex-1 w-full px-4 py-3 border-0 rounded-md">
             <option>Job Category</option>
             <option>Frontend</option>
             <option>Backend</option>
@@ -25,7 +25,7 @@ const SearchBar = () => {
           </select>
 
           {/* Select 2 */}
-          <select className="flex-1 w-full px-4 py-3 border rounded-md">
+          <select className="flex-1 w-full px-4 py-3 border-0 rounded-md">
             <option>Select City</option>
             <option>Dhaka</option>
             <option>Chittagong</option>

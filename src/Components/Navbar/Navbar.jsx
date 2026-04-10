@@ -1,12 +1,17 @@
 import React from "react";
 import Logo from "../Logo/Logo";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
 import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 const Navbar = () => {
   const { user, userSignOut } = useAuth();
+
+  const location = useLocation();
+  const isDeveloperActive = location.pathname === "/developers";
+
+  // console.log(location);
 
   const navLinkClass = ({ isActive }) =>
     isActive
@@ -17,18 +22,23 @@ const Navbar = () => {
     <>
       <li className="relative group">
         <NavLink
+          end
           to="/developers"
-          className={`${navLinkClass} flex items-center gap-1`}>
+          className={
+            isDeveloperActive
+              ? "text-gray-700 font-semibold border-b-2 border-gray-800"
+              : "text-green-600 font-semibold hover:text-primary transition"
+          }>
           Developers
           <MdKeyboardArrowDown />
         </NavLink>
 
         {/* DROPDOWN */}
-        <ul className="absolute top-10 left-0 mt-2 w-52 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-0 translate-y-2 transition-all duration-300 z-50">
+        <ul className="absolute top-7 left-0 mt-2 w-52 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-0 translate-y-2 transition-all duration-300 z-50">
           <li>
             <Link
               to="/developers/web"
-              className="block px-4 py-2 hover:bg-gray-100">
+              className="block px-4 py-2 hover:bg-green-600 hover:text-white">
               Web Developer
             </Link>
           </li>
@@ -36,7 +46,7 @@ const Navbar = () => {
           <li>
             <Link
               to="/developers/react"
-              className="block px-4 py-2 hover:bg-gray-100">
+              className="block px-4 py-2 hover:bg-green-600 hover:text-white">
               React Developer
             </Link>
           </li>
@@ -44,7 +54,7 @@ const Navbar = () => {
           <li>
             <Link
               to="/developers/python"
-              className="block px-4 py-2 hover:bg-gray-100">
+              className="block px-4 py-2 hover:bg-green-600 hover:text-white">
               Python Developer
             </Link>
           </li>
