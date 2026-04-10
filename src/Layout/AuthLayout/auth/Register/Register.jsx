@@ -66,52 +66,123 @@ const Register = () => {
     setValue("photo", null); // Clears the file from react-hook-form
   };
 
+  // const handleRegister = async (data) => {
+  //   setIsSubmitting(true);
+  //   try {
+  //     const imageFile = data.photo[0];
+  //     const formData = new FormData();
+  //     formData.append("file", imageFile); // REQUIRED
+  //     formData.append("upload_preset", "my_present");
+  //     const cloudinaryRes = await axios.post(
+  //       `https://api.cloudinary.com/v1_1/dldvozuht/image/upload`,
+  //       formData,
+  //     );
+  //     const photoURL = cloudinaryRes.data.secure_url;
+  //     const res = await registerWithEmail(data.email, data.password);
+  //     // console.log(res.user);
+  //     await updateUser({
+  //       displayName: data.name,
+  //       photoURL: photoURL,
+  //     });
+
+  //     const userInfo = {
+  //       displayName: data.name,
+  //       email: data.email,
+  //       photoURL: photoURL,
+  //       uid: res.user.uid,
+  //       role: data.workStatus,
+  //       createdAt: new Date(),
+  //     };
+
+  //     const dbRes = await axiosSecure.post("/users", userInfo);
+
+  //     if (!dbRes.data.success) {
+  //       throw new Error("DB save failed");
+  //     }
+
+  //     toast.success(`Welcome ${data.name}`);
+  //     navigate(from, { replace: true });
+  //     reset();
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error(`${error}`);
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
+  // Extract onChange from react-hook-form to combine it with our custom handleImageChange
+
   const handleRegister = async (data) => {
     setIsSubmitting(true);
+
     try {
       const imageFile = data.photo[0];
-      const formData = new FormData();
-      formData.append("file", imageFile); // REQUIRED
-      formData.append("upload_preset", "my_present");
-      const cloudinaryRes = await axios.post(
-        `https://api.cloudinary.com/v1_1/dldvozuht/image/upload`,
-        formData,
-      );
-      const photoURL = cloudinaryRes.data.secure_url;
-      const res = await registerWithEmail(data.email, data.password);
-      // console.log(res.user);
+      if (!imageFile) throw new Error("Photo is required");
+
+      // 🔥 PARALLEL: Cloudinary + Firebase register (biggest win)
+      const uploadToCloudinary = async () => {
+        const formData = new FormData();
+        formData.append("file", imageFile);
+        formData.append("upload_preset", "my_present");
+
+        const res = await axios.post(
+          "https://api.cloudinary.com/v1_1/dldvozuht/image/upload",
+          formData,
+        );
+        return res.data.secure_url;
+      };
+
+      const [firebaseRes, photoURL] = await Promise.all([
+        registerWithEmail(data.email, data.password),
+        uploadToCloudinary(),
+      ]);
+
+      // Now we have both user and photoURL
       await updateUser({
         displayName: data.name,
         photoURL: photoURL,
       });
 
+      // Build user info for MongoDB
       const userInfo = {
         displayName: data.name,
         email: data.email,
         photoURL: photoURL,
-        uid: res.user.uid,
+        uid: firebaseRes.user.uid,
         role: data.workStatus,
         createdAt: new Date(),
       };
 
-      const dbRes = await axiosSecure.post("/users", userInfo);
+      // Optional but recommended: make DB save fire-and-forget
+      // (navigation should not wait for MongoDB)
+      const saveToDB = async () => {
+        try {
+          const dbRes = await axiosSecure.post("/users", userInfo);
+          if (!dbRes.data.success) {
+            console.warn("DB save failed but user is registered in Firebase");
+          }
+        } catch (dbErr) {
+          console.warn("Database save error (non-blocking):", dbErr);
+          // You can still toast a soft warning here if you want
+        }
+      };
 
-      if (!dbRes.data.success) {
-        throw new Error("DB save failed");
-      }
+      // Start DB save in background
+      saveToDB();
 
-      toast.success(`Welcome ${data.name}`);
+      // 🔥 NAVIGATE IMMEDIATELY after Firebase is done
+      toast.success(`Welcome ${data.name}!`);
       navigate(from, { replace: true });
       reset();
     } catch (error) {
-      console.log(error);
-      toast.error(`${error}`);
+      console.error(error);
+      toast.error(error.message || "Registration failed");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Extract onChange from react-hook-form to combine it with our custom handleImageChange
   const { onChange: rhfOnChange, ...restPhotoRegister } = register("photo", {
     required: "Photo is required",
     validate: {
