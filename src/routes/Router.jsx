@@ -11,6 +11,7 @@ import About from "../Pages/About/About";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import Profile from "../Layout/DashboardLayout/Dashboard/Profile/Profile";
+import UsersManagement from "../Layout/DashboardLayout/Dashboard/UsersManagement/UsersManagement";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,11 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         Component: Profile,
+      },
+
+      {
+        path: "users-management",
+        Component: UsersManagement,
       },
     ],
   },

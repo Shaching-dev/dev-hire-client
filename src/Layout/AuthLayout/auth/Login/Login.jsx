@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import useAuth from "../../../../hooks/useAuth/useAuth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Login = () => {
   const { signInWithEmail } = useAuth();
@@ -142,7 +143,7 @@ const Login = () => {
 
       {/* Social Login */}
       <div className="mt-8 border-t border-gray-200 pt-6">
-        {/* <SocialLogin /> */}
+        <SocialLogin />
       </div>
 
       <div className="text-center mt-8">

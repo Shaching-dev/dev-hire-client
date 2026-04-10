@@ -1,5 +1,6 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
+import { FaUsers } from "react-icons/fa";
 import { IoIosHome } from "react-icons/io";
 import { NavLink, Outlet } from "react-router";
 
@@ -75,6 +76,19 @@ const DashboardLayout = () => {
                   size={20}
                 />
                 <span className="is-drawer-close:hidden">Profile</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={navLinkClass}
+                to={"/dashboard/users-management"}>
+                <FaUsers
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Homepage"
+                  size={20}
+                />
+
+                <span className="is-drawer-close:hidden">Users Management</span>
               </NavLink>
             </li>
           </ul>
