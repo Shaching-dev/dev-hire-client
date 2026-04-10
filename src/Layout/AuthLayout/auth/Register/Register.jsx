@@ -9,6 +9,8 @@ import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure/useAxiosSecure";
+import WorkStatus from "../WorkStatus/WorkStatus";
 
 const Register = () => {
   const [preview, setPreview] = useState(null);
@@ -24,6 +26,8 @@ const Register = () => {
     setValue, // ✅ Imported setValue to clear the input
     formState: { errors },
   } = useForm();
+
+  const axiosSecure = useAxiosSecure();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -81,6 +85,22 @@ const Register = () => {
         photoURL: photoURL,
       });
 
+      const userInfo = {
+        displayName: data.name,
+        email: data.email,
+        photoURL: photoURL,
+        password: data.password,
+        WorkStatus: data.workStatus,
+      };
+
+      console.log(data.workStatus);
+
+      await axiosSecure.post("/users", userInfo).then((res) => {
+        if (res.data.insertedId) {
+          console.log("user saved in the db");
+        }
+      });
+
       toast.success(`Successfully regsitered ${res.user.displayName}`);
       navigate(from, { replace: true });
 
@@ -111,7 +131,7 @@ const Register = () => {
   });
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="">
       <div className="w-full max-w-md p-6 bg-gradient-to-r from-blue-400 to-purple-300 hover:shadow-2xl hover:shadow-green-950 duration-150 rounded-lg shadow-md">
         <h3 className="text-2xl font-semibold text-center my-3 text-[#0e2c4e]">
           Welcome to Dev Hire
@@ -244,6 +264,8 @@ const Register = () => {
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
           </span>
+
+          <WorkStatus register={register} setValue={setValue} />
 
           {/* Submit */}
           <button

@@ -55,8 +55,10 @@ const Categories = () => {
         </h3>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-3">
-          {Categories.map((category) => (
-            <div className="flex justify-center items-center flex-col bg-white py-5 rounded-xl shadow-black/15">
+          {Categories.map((category, i) => (
+            <div
+              key={i}
+              className="flex justify-center items-center flex-col bg-white py-5 rounded-xl shadow-black/15">
               <span className="mb-3 text-green-700">{category.icon}</span>
               <h2 className=" text-xl text-green-700">{category.title}</h2>
             </div>

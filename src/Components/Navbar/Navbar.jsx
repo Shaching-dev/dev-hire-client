@@ -111,7 +111,7 @@ const Navbar = () => {
             </svg>
           </div>
 
-          <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow bg-base-100 rounded-box w-52">
+          <ul className="menu menu-lg dropdown-content mt-3 z-[1] p-3 shadow bg-base-100 w-[300px]">
             {links}
           </ul>
         </div>

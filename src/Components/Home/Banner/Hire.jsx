@@ -18,7 +18,7 @@ const Hire = () => {
       rating: 4.6,
       role: "Sr. Web Designer",
       perHour: "70/hr",
-      experience: 5,
+      experience: 1,
       image: dev1,
     },
     {
@@ -26,7 +26,7 @@ const Hire = () => {
       rating: 4,
       role: "React Developer",
       perHour: "30/hr",
-      experience: 5,
+      experience: 2,
       image: dev2,
     },
     {
@@ -34,7 +34,7 @@ const Hire = () => {
       rating: 4.9,
       role: "Sr. Web Designer",
       perHour: "70/hr",
-      experience: 5,
+      experience: 10,
       image: dev3,
     },
     {
@@ -42,7 +42,7 @@ const Hire = () => {
       rating: 4.4,
       role: "Sr. Web Designer",
       perHour: "70/hr",
-      experience: 5,
+      experience: 4,
       image: dev4,
     },
     {
@@ -50,7 +50,7 @@ const Hire = () => {
       rating: 4.7,
       role: "Sr. Web Designer",
       perHour: "70/hr",
-      experience: 5,
+      experience: 7,
       image: dev5,
     },
     {
@@ -58,7 +58,7 @@ const Hire = () => {
       rating: 4.8,
       role: "Sr. Web Designer",
       perHour: "70/hr",
-      experience: 5,
+      experience: 3,
       image: dev6,
     },
     {
@@ -66,7 +66,7 @@ const Hire = () => {
       rating: 5,
       role: "Sr. Web Designer",
       perHour: "70/hr",
-      experience: 5,
+      experience: 6.5,
       image: dev7,
     },
     {
@@ -75,6 +75,7 @@ const Hire = () => {
       role: "Sr. Web Designer",
       perHour: "70/hr",
       image: dev8,
+      experience: 7,
     },
   ];
 
