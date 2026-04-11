@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 
 const PostJob = () => {
   const {
@@ -10,7 +11,9 @@ const PostJob = () => {
     formState: { errors },
   } = useForm();
 
-  const handleJobPost = (data) => {
+  const axiosSecure = useAxiosSecure();
+
+  const handleJobPost = async (data) => {
     const formattedData = {
       ...data,
       techStack: data.techStack.split(",").map((t) => t.trim()),
@@ -31,22 +34,28 @@ const PostJob = () => {
         confirmButton: "px-5 py-2 rounded-lg",
         cancelButton: "px-5 py-2 rounded-lg",
       },
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        // 👉 API call here
-        console.log(formattedData);
+        try {
+          const res = await axiosSecure.post("/jobs", formattedData);
+          //   console.log(res.data);
 
-        Swal.fire({
-          title: "Job Posted!",
-          text: "Your job is now live and visible to developers.",
-          icon: "success",
-          confirmButtonColor: "#2563eb",
-          confirmButtonText: "Go to Dashboard",
-          customClass: {
-            popup: "rounded-2xl",
-            confirmButton: "px-5 py-2 rounded-lg",
-          },
-        });
+          if (res.data.success) {
+            Swal.fire({
+              title: "Job Posted!",
+              text: "Your job is now live and visible to developers.",
+              icon: "success",
+              confirmButtonColor: "#2563eb",
+              confirmButtonText: "Go to Dashboard",
+              customClass: {
+                popup: "rounded-2xl",
+                confirmButton: "px-5 py-2 rounded-lg",
+              },
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
     });
   };
