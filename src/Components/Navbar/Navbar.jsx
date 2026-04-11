@@ -60,11 +60,18 @@ const Navbar = () => {
           </li>
         </ul>
       </li>
+
+      <li>
+        <NavLink to="/post-job" className={navLinkClass}>
+          Post a job
+        </NavLink>
+      </li>
       <li>
         <NavLink to="/jobs" className={navLinkClass}>
           Jobs
         </NavLink>
       </li>
+
       <li>
         <NavLink to="/about" className={navLinkClass}>
           About
@@ -76,8 +83,8 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard" className={navLinkClass}>
-          Dashboard
+        <NavLink to="/dashboard/profile" className={navLinkClass}>
+          Profile
         </NavLink>
       </li>
     </>

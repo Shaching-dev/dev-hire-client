@@ -18,10 +18,10 @@ const WorkStatus = ({ register, setValue }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Job Seeker */}
         <div
-          onClick={() => handleSelect("job_seeker")}
+          onClick={() => handleSelect("developer")}
           className={`cursor-pointer border rounded-xl p-5 flex items-center gap-4 transition-all
           ${
-            selected === "job_seeker"
+            selected === "developer"
               ? "border-green-600 bg-green-50"
               : "border-gray-300"
           }`}>

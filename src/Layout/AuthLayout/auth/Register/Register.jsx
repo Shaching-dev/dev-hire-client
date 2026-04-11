@@ -41,10 +41,10 @@ const Register = () => {
     if (!file) return;
 
     // Check file type
-    if (file.type !== "image/png") {
-      setFileError("Only PNG files are allowed");
-      return;
-    }
+    // if (file.type !== "image/png" || file.type !== "image/jpg") {
+    //   setFileError("Only PNG files are allowed");
+    //   return;
+    // }
 
     // Check file size (2MB = 2 * 1024 * 1024)
     if (file.size > 2 * 1024 * 1024) {
@@ -268,11 +268,8 @@ const Register = () => {
         !files[0] ||
         files[0].size < 2 * 1024 * 1024 ||
         "Max 2MB allowed",
-      isPNG: (files) =>
-        !files ||
-        !files[0] ||
-        files[0].type === "image/png" ||
-        "Only PNG allowed",
+      // isPNG: (files) =>
+      //   !files || !files[0] || files[0].type === "image/png" || "image/jpg",
     },
   });
 
@@ -320,7 +317,7 @@ const Register = () => {
                   className="w-12 h-12 opacity-70 mb-1"
                 />
                 <span className="text-[#0e2c4e]/70 text-sm font-medium">
-                  Upload PNG
+                  Upload Photo
                 </span>
               </label>
             )}
@@ -329,7 +326,6 @@ const Register = () => {
           <input
             id="photo-upload"
             type="file"
-            accept="image/png"
             className="hidden"
             {...restPhotoRegister}
             onChange={(e) => {

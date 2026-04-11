@@ -83,9 +83,9 @@ const UsersManagement = () => {
         {!isLoading && (
           <>
             {/* Desktop & Tablet Table */}
-            <div className="hidden md:block overflow-x-auto rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+            <div className="hidden md:block overflow-x-auto rounded-xl shadow-sm border border-gray-200 d bg-white ">
               <table className="table w-full">
-                <thead className="bg-gray-100 dark:bg-gray-700">
+                <thead className="bg-gray-100">
                   <tr>
                     <th className="py-4 px-6 text-left font-semibold">SL</th>
                     <th className="py-4 px-6 text-left font-semibold">User</th>
@@ -95,11 +95,11 @@ const UsersManagement = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="divide-y divide-gray-200 ">
                   {users.map((user, index) => (
                     <tr
                       key={user._id || index}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                      className="hover:bg-gray-50  transition-colors">
                       <td className="py-4 px-6 font-medium text-gray-500 dark:text-gray-400">
                         {index + 1}
                       </td>
@@ -118,17 +118,17 @@ const UsersManagement = () => {
                             </div>
                           </div>
                           <div>
-                            <div className="font-semibold text-gray-900 dark:text-white">
+                            <div className="font-semibold ">
                               {user?.displayName || "N/A"}
                             </div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                            <div className="text-sm font-semibold">
                               {user.email}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td className="py-4 px-6">
-                        <span className="badge badge-lg badge-outline badge-success font-medium">
+                        <span className="badge  badge-outline badge-success ">
                           {user.role ? user.role.toUpperCase() : "USER"}
                         </span>
                       </td>

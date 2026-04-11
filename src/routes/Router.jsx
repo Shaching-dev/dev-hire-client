@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import Profile from "../Layout/DashboardLayout/Dashboard/Profile/Profile";
 import UsersManagement from "../Layout/DashboardLayout/Dashboard/UsersManagement/UsersManagement";
+import PostJob from "../Role/Recruiter/PostJob/PostJob";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,11 @@ export const router = createBrowserRouter([
       {
         path: "/jobs",
         Component: Jobs,
+      },
+
+      {
+        path: "/post-job",
+        element: <PostJob />,
       },
       {
         path: "/contact",
