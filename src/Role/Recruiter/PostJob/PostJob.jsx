@@ -18,7 +18,6 @@ const PostJob = () => {
       ...data,
       techStack: data.techStack.split(",").map((t) => t.trim()),
     };
-
     Swal.fire({
       title: "Post this job?",
       text: "Make sure all details are correct before publishing.",

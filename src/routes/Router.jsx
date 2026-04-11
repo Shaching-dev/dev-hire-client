@@ -13,6 +13,7 @@ import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import Profile from "../Layout/DashboardLayout/Dashboard/Profile/Profile";
 import UsersManagement from "../Layout/DashboardLayout/Dashboard/UsersManagement/UsersManagement";
 import PostJob from "../Role/Recruiter/PostJob/PostJob";
+import ForbiddenPage from "../hooks/useAxiosSecure/ForbiddenPage";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,11 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         Component: About,
+      },
+
+      {
+        path: "/forbidden",
+        Component: ForbiddenPage,
       },
     ],
   },

@@ -21,13 +21,12 @@ const Videos = () => {
       {/* 🔥 Content */}
       <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4">
         <h3 className="text-white text-3xl md:text-5xl font-bold mb-4">
-          Find the great exciting <br /> remote-friendly jobs
+          Best platform to find <br /> remote-friendly jobs
         </h3>
 
-        <p className="text-gray-200 mb-8 max-w-xl">
-          Getting a new job is never easy. Check what new jobs we have in store
-          for you.
-        </p>
+        {/* <p className="text-gray-200 mb-8 max-w-xl">
+          
+        </p> */}
       </div>
     </div>
   );
