@@ -1,6 +1,6 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
-import { FaUsers } from "react-icons/fa";
+import { FaUsers, FaUserTie } from "react-icons/fa";
 import { IoIosHome } from "react-icons/io";
 import { MdWork } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
@@ -111,7 +111,7 @@ const DashboardLayout = () => {
                 className={navLinkClass}
                 to={"/dashboard/manage-recruiter"}
               >
-                <MdWork
+                <FaUserTie
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Manage Recruiter"
                   size={20}

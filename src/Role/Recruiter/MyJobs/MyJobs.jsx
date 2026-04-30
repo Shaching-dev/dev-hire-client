@@ -24,6 +24,13 @@ const MyJobs = () => {
 
   return (
     <div>
+      <div>
+        <h3 className="text-center text-2xl text-primary font-bold">
+          My Total Jobs :{" "}
+          <span className="text-green-600">({jobs.length})</span>
+        </h3>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {jobs.map((job) => (
           <div
