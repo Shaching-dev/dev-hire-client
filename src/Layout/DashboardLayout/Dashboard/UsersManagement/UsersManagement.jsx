@@ -3,24 +3,29 @@ import React, { useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure/useAxiosSecure";
 import { BiSolidTrashAlt } from "react-icons/bi";
 import Swal from "sweetalert2";
+import useDebounce from "../../../../hooks/useDebounce/useDebounce";
 
 const UsersManagement = () => {
   const axiosSecure = useAxiosSecure();
-
   const [page, setPage] = useState(1);
-  const limit = 3;
+  const [searchText, setSearchText] = useState("");
+  const debounceSearch = useDebounce(searchText, 500);
+
+  const limit = 2;
 
   const { data, refetch, isLoading } = useQuery({
-    queryKey: ["users", page],
+    queryKey: ["users", page, debounceSearch],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users?page=${page}&limit=${limit}`);
+      const res = await axiosSecure.get(
+        `/users?page=${page}&limit=${limit}&searchText=${debounceSearch}`,
+      );
       return res.data;
     },
   });
 
   // ✅ Correct data extraction
   const users = data?.data || [];
-  console.log(users);
+  // console.log(users);
 
   const totalUsers = data?.total || 0;
   const totalPages = data?.totalPages || 1;
@@ -92,6 +97,11 @@ const UsersManagement = () => {
 
         <div className="text-center mb-10">
           <input
+            value={searchText}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setSearchText(e.target.value);
+            }}
             type="text"
             placeholder="Search User"
             className="input input-primary py-5 rounded-full"
@@ -154,7 +164,7 @@ const UsersManagement = () => {
                       <td className="text-center">
                         <button
                           onClick={() => handleUserDelete(user)}
-                          className="text-red-500"
+                          className="text-red-500 rounded-full p-2 cursor-pointer hover:bg-red-800"
                         >
                           <BiSolidTrashAlt size={20} />
                         </button>
