@@ -79,7 +79,8 @@ const Profile = () => {
           <div className="my-5 flex justify-center">
             <button
               className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-2xl transition-all shadow-lg flex items-center gap-2"
-              onClick={() => alert("Edit profile coming soon! ✨")}>
+              onClick={() => alert("Edit profile coming soon! ✨")}
+            >
               ✏️ Edit Profile
             </button>
           </div>

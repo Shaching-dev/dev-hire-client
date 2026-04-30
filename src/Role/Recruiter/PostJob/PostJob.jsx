@@ -15,6 +15,7 @@ import ReactSelect from "react-select";
 import Jobditor from "../JobEditor/Jobditor";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "@/hooks/useAxiosSecure/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const JOB_TYPES = [
   { value: "full-time", label: "Full-time" },
@@ -171,8 +172,43 @@ const PostJob = () => {
 
   const skillOptions = skills.map((s) => ({ value: s.value, label: s.label }));
 
-  const onSubmit = (data) => {
-    console.log("Job payload:", { ...data });
+  const handleJobPost = (data) => {
+    Swal.fire({
+      title: "Post this job?",
+      text: "Make sure all details are correct before publishing.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#16a34a", // green
+      cancelButtonColor: "#6b7280", // gray
+      confirmButtonText: "Publish Job",
+      cancelButtonText: "Review Again",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const jobData = data;
+          const res = await axiosSecure.post("/jobs", jobData);
+          console.log(res.data);
+
+          if (res.data.insertedId) {
+            Swal.fire({
+              title: "Job Posted 🎉",
+              text: "Your job is now live.",
+              icon: "success",
+              timer: 2000,
+              showConfirmButton: false,
+            });
+          }
+        } catch (error) {
+          console.log(error);
+
+          Swal.fire({
+            title: "Something went wrong",
+            text: "Please try again.",
+            icon: "error",
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -228,7 +264,7 @@ const PostJob = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={handleSubmit(handleJobPost)} className="space-y-6">
             <Card title="Company Branding">
               <div className="flex items-center gap-6 mb-6">
                 <div className="relative w-24 h-24 flex-shrink-0">
