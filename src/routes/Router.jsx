@@ -15,6 +15,8 @@ import UsersManagement from "../Layout/DashboardLayout/Dashboard/UsersManagement
 import PostJob from "../Role/Recruiter/PostJob/PostJob";
 import ForbiddenPage from "../hooks/useAxiosSecure/ForbiddenPage";
 import JobDetails from "@/Role/Recruiter/JobDetails/JobDetails";
+import MyJobs from "@/Role/Recruiter/MyJobs/MyJobs";
+import ManageRecruiter from "@/Role/Recruiter/ManageRecruiter/ManageRecruiter";
 
 export const router = createBrowserRouter([
   {
@@ -93,6 +95,15 @@ export const router = createBrowserRouter([
       {
         path: "users-management",
         Component: UsersManagement,
+      },
+
+      {
+        path: "my-jobs",
+        Component: MyJobs,
+      },
+      {
+        path: "manage-recruiter",
+        Component: ManageRecruiter,
       },
     ],
   },

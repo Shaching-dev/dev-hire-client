@@ -37,8 +37,8 @@ const Login = () => {
     setIsSubmitting(true);
     try {
       await signInWithEmail(data.email, data.password);
+      // console.log(res.user);
 
-      // Save email for next time if "Remember me" is checked
       if (rememberMe) {
         localStorage.setItem("rememberedEmail", data.email);
       } else {
