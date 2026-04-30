@@ -1,11 +1,13 @@
 import React from "react";
+import useAuth from "../../hooks/useAuth/useAuth";
 
-const Developers = () => {
+export default function Developers() {
+  const { user } = useAuth();
+
+  console.log(user);
   return (
     <div>
-      <h3>Developers</h3>
+      <h3>Hello developers</h3>
     </div>
   );
-};
-
-export default Developers;
+}

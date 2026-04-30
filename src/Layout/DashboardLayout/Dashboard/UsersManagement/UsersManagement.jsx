@@ -56,20 +56,31 @@ const UsersManagement = () => {
     });
   };
 
+  console.log(users);
+
   return (
     <div className="min-h-screen bg-gray-50  p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+        <div className="flex flex-col justify-between items-center gap-4 mb-8">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600 dark:text-green-500">
             Users Management
           </h2>
+
           <div className="text-lg md:text-xl font-semibold text-gray-700 dark:text-gray-300">
             Total Users:{" "}
             <span className="text-primary text-2xl font-bold">
               {users.length}
             </span>
           </div>
+        </div>
+
+        <div className="text-center mb-10">
+          <input
+            type="text"
+            placeholder="Search User"
+            className="input input-primary py-3 rounded-full focus:outline-0"
+          />
         </div>
 
         {/* Loading State */}
@@ -90,6 +101,9 @@ const UsersManagement = () => {
                     <th className="py-4 px-6 text-left font-semibold">SL</th>
                     <th className="py-4 px-6 text-left font-semibold">User</th>
                     <th className="py-4 px-6 text-left font-semibold">Role</th>
+                    <th className="py-4 px-6 text-left font-semibold">
+                      User Created
+                    </th>
                     <th className="py-4 px-6 text-center font-semibold">
                       Actions
                     </th>
@@ -99,7 +113,8 @@ const UsersManagement = () => {
                   {users.map((user, index) => (
                     <tr
                       key={user._id || index}
-                      className="hover:bg-gray-50  transition-colors">
+                      className="hover:bg-gray-50  transition-colors"
+                    >
                       <td className="py-4 px-6 font-medium text-gray-500 dark:text-gray-400">
                         {index + 1}
                       </td>
@@ -132,11 +147,23 @@ const UsersManagement = () => {
                           {user.role ? user.role.toUpperCase() : "USER"}
                         </span>
                       </td>
+
+                      <td>
+                        {new Date(user.createdAt).toLocaleString("en-GB", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </td>
+
                       <td className="py-4 px-6 text-center">
                         <button
                           onClick={() => handleUserDelete(user)}
-                          className="btn btn-ghost btn-circle text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950 transition-all"
-                          title="Delete User">
+                          className="btn btn-ghost btn-circle cursor-pointer text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950 transition-all"
+                          title="Delete User"
+                        >
                           <BiSolidTrashAlt size={22} />
                         </button>
                       </td>
@@ -151,7 +178,8 @@ const UsersManagement = () => {
               {users.map((user, index) => (
                 <div
                   key={user._id || index}
-                  className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-5">
+                  className="bg-white  rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-5"
+                >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="avatar">
@@ -177,7 +205,8 @@ const UsersManagement = () => {
 
                     <button
                       onClick={() => handleUserDelete(user)}
-                      className="text-red-500 hover:text-red-600 p-2 -mr-2 transition-colors">
+                      className="text-red-500 hover:text-red-600 p-2 cursor-pointer -mr-2 transition-colors"
+                    >
                       <BiSolidTrashAlt size={24} />
                     </button>
                   </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaUsers } from "react-icons/fa";
 import { IoIosHome } from "react-icons/io";
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 
 const DashboardLayout = () => {
   const navLinkClass = ({ isActive }) =>
@@ -58,14 +58,14 @@ const DashboardLayout = () => {
           <ul className="menu w-full grow space-y-5">
             {/* List item */}
             <li>
-              <NavLink className={`${navLinkClass} cursor-pointer`} to={"/"}>
+              <Link to={"/"}>
                 <IoIosHome
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Homepage"
                   size={20}
                 />
                 <span className="is-drawer-close:hidden">Homepage</span>
-              </NavLink>
+              </Link>
             </li>
 
             <li>
