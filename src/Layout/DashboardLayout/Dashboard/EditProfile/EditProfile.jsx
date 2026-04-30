@@ -9,6 +9,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import ReactSelect from "react-select";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const EditProfile = () => {
   const { user } = useAuth();
@@ -137,8 +138,23 @@ const EditProfile = () => {
     }
   };
 
+  // -------------------------------
+
+  const uploadResumeToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "my_present");
+
+    const res = await axios.post(
+      "https://api.cloudinary.com/v1_1/dldvozuht/raw/upload", // 🔥 IMPORTANT (raw)
+      formData,
+    );
+
+    return res.data.secure_url;
+  };
+
   // ─── Submit ────────────────────────────────────────
-  const onSubmit = async (formData) => {
+  const handleProfileUpdate = async (formData) => {
     if (!profile?._id) return;
 
     if (!resumeFile && !profile?.resumeUrl) {
@@ -149,19 +165,30 @@ const EditProfile = () => {
     setIsSubmitting(true);
 
     try {
-      // resumeFile is the raw File object — upload it however you like
+      let resumeUrl = profile?.resumeUrl || "";
+
+      // 🔥 STEP 1: Upload if new file exists
+      if (resumeFile) {
+        resumeUrl = await uploadResumeToCloudinary(resumeFile);
+        console.log("Uploaded URL:", resumeUrl);
+      }
+
+      // 🔥 STEP 2: Prepare clean payload
       const payload = {
         skills: formData.skills?.map((s) => s.value) || [],
         description: formData.description || "",
-        resumeFile, // ← hand this to your backend logic
+        resumeUrl, // ✅ NOT file anymore
       };
 
-      console.log("Payload ready:", payload);
+      console.log("Final Payload:", payload);
 
-      // TODO: your upload + patch logic here
+      // // 🔥 STEP 3: Send to backend
+      const res = await axiosSecure.patch(`/users/${profile._id}`, payload);
+      console.log(res.data);
+
+      toast.success("Profile updated successfully!");
     } catch (err) {
       console.log(err);
-
       toast.error("Something went wrong.");
     } finally {
       setIsSubmitting(false);
@@ -212,7 +239,7 @@ const EditProfile = () => {
       </Card>
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(handleProfileUpdate)} className="space-y-6">
         {/* Skills */}
         <Card>
           <CardHeader>

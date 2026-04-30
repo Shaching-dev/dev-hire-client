@@ -19,6 +19,8 @@ const Profile = () => {
   // Extract the single user object (your API always returns array)
   const profile = profileData[0] || {};
 
+  console.log(profile);
+
   // Format join date nicely
   const joinDate = profile.createdAt
     ? new Date(profile.createdAt).toLocaleDateString("en-US", {
