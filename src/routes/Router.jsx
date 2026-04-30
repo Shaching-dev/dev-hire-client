@@ -14,6 +14,7 @@ import Profile from "../Layout/DashboardLayout/Dashboard/Profile/Profile";
 import UsersManagement from "../Layout/DashboardLayout/Dashboard/UsersManagement/UsersManagement";
 import PostJob from "../Role/Recruiter/PostJob/PostJob";
 import ForbiddenPage from "../hooks/useAxiosSecure/ForbiddenPage";
+import JobDetails from "@/Role/Recruiter/JobDetails/JobDetails";
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +38,10 @@ export const router = createBrowserRouter([
         path: "/jobs",
         Component: Jobs,
       },
-
+      {
+        path: "/jobs-details/:id",
+        Component: JobDetails,
+      },
       {
         path: "/post-job",
         element: <PostJob />,

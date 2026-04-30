@@ -2,6 +2,7 @@ import useAxiosSecure from "@/hooks/useAxiosSecure/useAxiosSecure";
 import FirebaseLoading from "@/utils/FirebaseLoading/FirebaseLoading";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Link } from "react-router";
 
 const Jobs = () => {
   const axiosSecure = useAxiosSecure();
@@ -25,10 +26,6 @@ const Jobs = () => {
     return html?.replace(/<[^>]*>?/gm, "") || "";
   };
 
-  const handleShowJobDetails = (job) => {
-    console.log(job);
-  };
-
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <header className="mb-10 text-center">
@@ -40,10 +37,9 @@ const Jobs = () => {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 cursor-pointer ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {jobs.map((job) => (
           <div
-            onClick={() => handleShowJobDetails(job)}
             key={job._id}
             className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
           >
@@ -102,8 +98,8 @@ const Jobs = () => {
                   </p>
                 </div>
               </div>
-              <button className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-pink-600 transition-colors">
-                Apply Now
+              <button className="bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer hover:bg-green-800 transition-colors">
+                <Link to={`/jobs-details/${job._id}`}>View Details</Link>
               </button>
             </div>
           </div>

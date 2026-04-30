@@ -98,7 +98,8 @@ const Login = () => {
           />
           <span
             className="absolute right-5 top-11 cursor-pointer text-[#0e2c4e]/60 hover:text-[#0e2c4e]"
-            onClick={() => setShowPassword(!showPassword)}>
+            onClick={() => setShowPassword(!showPassword)}
+          >
             {showPassword ? <FaEyeSlash size={22} /> : <FaEye size={22} />}
           </span>
           {errors.password && (
@@ -121,7 +122,8 @@ const Login = () => {
           </label>
           <Link
             to="/auth/forgot-password"
-            className="text-[#0e2c4e] hover:underline text-sm">
+            className="text-[#0e2c4e] hover:underline text-sm"
+          >
             Forgot password?
           </Link>
         </div>
@@ -130,7 +132,8 @@ const Login = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-4 bg-[#0e2c4e] hover:bg-[#1a4b82] text-white font-semibold text-lg rounded-2xl transition-all flex items-center justify-center">
+          className="w-full py-2 bg-[#0e2c4e] hover:bg-[#1a4b82] text-white font-semibold text-lg rounded-2xl transition-all flex items-center justify-center"
+        >
           {isSubmitting ? (
             <span className="animate-spin">
               <AiOutlineLoading3Quarters size={24} />
@@ -142,16 +145,17 @@ const Login = () => {
       </form>
 
       {/* Social Login */}
-      <div className="mt-8 border-t border-gray-200 pt-6">
+      <div className="my-3 border-t border-gray-200 pt-6">
         <SocialLogin />
       </div>
 
-      <div className="text-center mt-8">
+      <div className="text-center">
         <p className="text-[#0e2c4e]/70">
           Don’t have an account?{" "}
           <Link
             to="/auth/register"
-            className="font-semibold text-[#0e2c4e] hover:underline">
+            className="font-semibold text-[#0e2c4e] hover:underline"
+          >
             Register here
           </Link>
         </p>
