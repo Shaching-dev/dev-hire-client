@@ -17,6 +17,7 @@ import ForbiddenPage from "../hooks/useAxiosSecure/ForbiddenPage";
 import JobDetails from "@/Role/Recruiter/JobDetails/JobDetails";
 import MyJobs from "@/Role/Recruiter/MyJobs/MyJobs";
 import ManageRecruiter from "@/Role/Recruiter/ManageRecruiter/ManageRecruiter";
+import EditProfile from "@/Layout/DashboardLayout/Dashboard/EditProfile/EditProfile";
 
 export const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ export const router = createBrowserRouter([
       {
         path: "manage-recruiter",
         Component: ManageRecruiter,
+      },
+      {
+        path: "edit-profile",
+        Component: EditProfile,
       },
     ],
   },
