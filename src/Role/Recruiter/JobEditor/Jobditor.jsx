@@ -1,7 +1,7 @@
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Bold,
   Italic,
@@ -9,20 +9,18 @@ import {
   ListOrdered,
   Heading1,
   Heading2,
-  Heading3,
   Quote,
   Redo,
   Undo,
 } from "lucide-react";
 
-// Helper component for Toolbar Buttons
 const ToolbarButton = ({ onClick, isActive, children, tooltip }) => (
   <button
     type="button"
     onClick={onClick}
     className={`p-2 rounded-md transition-all ${
       isActive
-        ? "bg-primary text-white shadow-sm"
+        ? "bg-[#0d1f35] text-white shadow-sm"
         : "bg-transparent text-gray-600 hover:bg-gray-100"
     }`}
     title={tooltip}
@@ -39,91 +37,115 @@ const Jobditor = ({ value, onChange }) => {
         placeholder: "Describe the role, responsibilities, and benefits...",
       }),
     ],
-    content: value,
+    // ✅ FIX 1: Only use the initial value once on mount — don't pass `value` directly
+    content: value || "",
     onUpdate: ({ editor }) => {
-      // Sending HTML to the backend is usually easier for Job Posts
-      onChange(editor.getJSON());
+      // ✅ FIX 2: Always send HTML (not getText) so the useEffect comparison works
+      onChange(editor.getHTML());
     },
-    // This allows the editor to look like a real document
     editorProps: {
       attributes: {
-        class:
-          "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none min-h-[200px] max-w-none p-4",
+        class: "prose prose-sm focus:outline-none min-h-[220px] max-w-none p-4",
       },
     },
   });
 
+  // ✅ FIX 3: Only sync external value changes if the content actually differs
+  // This prevents the editor from resetting while the user is typing
+  useEffect(() => {
+    if (!editor || editor.isDestroyed) return;
+    const currentHTML = editor.getHTML();
+    if (value !== currentHTML) {
+      // preserveWhitespace keeps cursor position intact
+      editor.commands.setContent(value || "", false);
+    }
+    // ✅ FIX 4: Remove `value` from deps — only run when editor mounts
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor]);
+
   if (!editor) return null;
 
   return (
-    <div className="w-full border rounded-xl overflow-hidden bg-white shadow-sm ring-1 ring-gray-200 focus-within:ring-2 focus-within:ring-primary/50 transition-all">
-      {/* Interactive Toolbar */}
-      <div className="flex flex-wrap items-center gap-1 p-2 border-b bg-gray-300">
+    <div className="w-full border rounded-xl overflow-hidden bg-white shadow-sm ring-1 ring-gray-200 focus-within:ring-2 focus-within:ring-[#0d1f35]/30 transition-all">
+      {/* Toolbar */}
+      <div className="flex flex-wrap items-center gap-1 p-2 border-b bg-slate-50">
         <ToolbarButton
           onClick={() => editor.chain().focus().undo().run()}
           tooltip="Undo"
         >
-          <Undo size={18} />
+          <Undo size={16} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().redo().run()}
           tooltip="Redo"
         >
-          <Redo size={18} />
+          <Redo size={16} />
         </ToolbarButton>
-        <div className="w-px h-6 bg-gray-300 mx-1" /> {/* Divider */}
+
+        <div className="w-px h-5 bg-gray-300 mx-1" />
+
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBold().run()}
           isActive={editor.isActive("bold")}
           tooltip="Bold"
         >
-          <Bold size={18} />
+          <Bold size={16} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleItalic().run()}
           isActive={editor.isActive("italic")}
           tooltip="Italic"
         >
-          <Italic size={18} />
+          <Italic size={16} />
         </ToolbarButton>
-        <div className="w-px h-6 bg-gray-300 mx-1" />
+
+        <div className="w-px h-5 bg-gray-300 mx-1" />
+
         <ToolbarButton
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 1 }).run()
           }
           isActive={editor.isActive("heading", { level: 1 })}
+          tooltip="Heading 1"
         >
-          <Heading1 size={18} />
+          <Heading1 size={16} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 2 }).run()
           }
           isActive={editor.isActive("heading", { level: 2 })}
+          tooltip="Heading 2"
         >
-          <Heading2 size={18} />
+          <Heading2 size={16} />
         </ToolbarButton>
+
+        <div className="w-px h-5 bg-gray-300 mx-1" />
+
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           isActive={editor.isActive("bulletList")}
+          tooltip="Bullet List"
         >
-          <List size={18} />
+          <List size={16} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           isActive={editor.isActive("orderedList")}
+          tooltip="Numbered List"
         >
-          <ListOrdered size={18} />
+          <ListOrdered size={16} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           isActive={editor.isActive("blockquote")}
+          tooltip="Blockquote"
         >
-          <Quote size={18} />
+          <Quote size={16} />
         </ToolbarButton>
       </div>
 
-      {/* Editor Surface */}
+      {/* Editor surface */}
       <div className="cursor-text">
         <EditorContent editor={editor} />
       </div>

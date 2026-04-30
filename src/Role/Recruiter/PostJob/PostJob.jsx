@@ -113,7 +113,6 @@ const ShadcnField = ({
 const PostJob = () => {
   const [preview, setPreview] = useState(null);
   const [fileError, setFileError] = useState("");
-  const [description, setDescription] = useState("");
   const axiosSecure = useAxiosSecure();
 
   const {
@@ -173,7 +172,7 @@ const PostJob = () => {
   const skillOptions = skills.map((s) => ({ value: s.value, label: s.label }));
 
   const onSubmit = (data) => {
-    console.log("Job payload:", { ...data, description });
+    console.log("Job payload:", { ...data });
   };
 
   return (
@@ -489,9 +488,31 @@ const PostJob = () => {
                 )}
               </div>
             </Card>
-
             <Card title="Job Description">
-              <Jobditor value={description} onChange={setDescription} />
+              <Controller
+                name="description"
+                control={control}
+                rules={{
+                  required: "Job description is required",
+                  validate: (value) => {
+                    // Strip HTML tags to check if the user actually typed text
+                    const plainText = value.replace(/<[^>]*>/g, "").trim();
+                    return (
+                      plainText.length > 10 ||
+                      "Description is too short (min 10 chars)"
+                    );
+                  },
+                }}
+                render={({ field }) => (
+                  <Jobditor value={field.value} onChange={field.onChange} />
+                )}
+              />
+              {/* Show the error message */}
+              {errors.description && (
+                <p className="text-red-500 text-xs mt-2">
+                  {errors.description.message}
+                </p>
+              )}
             </Card>
 
             <div className="flex justify-end items-center gap-3 pt-2 pb-8">
