@@ -1,14 +1,41 @@
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/Components/ui/alert-dialog";
+import { Button } from "@/Components/ui/button";
+import useAuth from "@/hooks/useAuth/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure/useAxiosSecure";
 import FirebaseLoading from "@/utils/FirebaseLoading/FirebaseLoading";
+import ApplyModal from "@/utils/Modal/ApplyModal";
+import AuthModal from "@/utils/Modal/AuthModal";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { useNavigate, useParams } from "react-router";
+import React, { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 
 const JobDetails = () => {
+  const { user } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+
+  // state -----
+
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showApplyModal, setShowApplyModal] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
+
+  const { data: profileData = [] } = useQuery({
+    queryKey: ["user", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users?email=${user?.email}`);
+      return res.data.data;
+    },
+  });
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["job-details", id],
@@ -61,6 +88,20 @@ const JobDetails = () => {
     });
   };
 
+  const profile = profileData[0];
+
+  // console.log(user);
+
+  const handleApplyJobs = (job) => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+
+    setSelectedJob(job);
+    setShowApplyModal(true);
+  };
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       {/* 🔷 Header */}
@@ -103,6 +144,16 @@ const JobDetails = () => {
         </div>
       </div>
 
+      <AuthModal open={showAuthModal} onOpenChange={setShowAuthModal} />
+
+      <ApplyModal
+        open={showApplyModal}
+        onOpenChange={setShowApplyModal}
+        job={selectedJob}
+        user={user}
+        profile={profile}
+      />
+
       {/* 🔷 Description */}
       <div className="bg-white p-6 rounded-2xl shadow-sm border mb-6">
         <h2 className="text-xl font-semibold mb-4">Job Description</h2>
@@ -127,9 +178,14 @@ const JobDetails = () => {
           </div>
         </div>
 
-        <button className="bg-green-700 text-white px-3 py-2 rounded-lg font-semibold hover:bg-green-800 transition">
-          Apply Now
+        {/* --------------------------------- */}
+        <button
+          onClick={() => handleApplyJobs(job)}
+          className="bg-black text-white px-3 py-2 rounded-lg font-semibold hover:bg-black/30 transition cursor-pointer"
+        >
+          Apply
         </button>
+        {/* ----------------- */}
       </div>
 
       <div className="text-center mt-5">
