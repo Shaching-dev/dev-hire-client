@@ -19,12 +19,13 @@ const WorkStatus = ({ register, setValue }) => {
         {/* Job Seeker */}
         <div
           onClick={() => handleSelect("developer")}
-          className={`cursor-pointer border rounded-xl p-5 flex items-center gap-4 transition-all
+          className={`cursor-pointer border rounded-xl p-2 flex items-center gap-4 transition-all
           ${
             selected === "developer"
               ? "border-green-600 bg-green-50"
               : "border-gray-300"
-          }`}>
+          }`}
+        >
           <FaBriefcase className="text-3xl text-green-600" />
 
           <div>
@@ -38,12 +39,13 @@ const WorkStatus = ({ register, setValue }) => {
         {/* Recruiter */}
         <div
           onClick={() => handleSelect("recruiter")}
-          className={`cursor-pointer border rounded-xl p-5 flex items-center gap-4 transition-all
+          className={`cursor-pointer border rounded-xl p-2 flex items-center gap-4 transition-all
           ${
             selected === "recruiter"
               ? "border-green-600 bg-green-50"
               : "border-gray-300"
-          }`}>
+          }`}
+        >
           <FaUsers className="text-3xl text-green-600" />
 
           <div>

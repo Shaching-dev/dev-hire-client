@@ -97,7 +97,6 @@ const JobDetails = () => {
       setShowAuthModal(true);
       return;
     }
-
     setSelectedJob(job);
     setShowApplyModal(true);
   };

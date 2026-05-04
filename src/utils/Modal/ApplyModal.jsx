@@ -5,13 +5,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import useAxiosSecure from "@/hooks/useAxiosSecure/useAxiosSecure";
+import { toast } from "sonner";
 
 const ApplyModal = ({ open, onOpenChange, job, user, profile }) => {
   const [coverLetter, setCoverLetter] = useState("");
 
-  const handleSubmit = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const handleSubmit = async () => {
     if (!coverLetter.trim()) {
       alert("Please write a cover letter");
       return;
@@ -31,7 +36,17 @@ const ApplyModal = ({ open, onOpenChange, job, user, profile }) => {
       coverLetter,
     };
 
-    console.log("Submitting:", applicationData);
+    try {
+      const res = await axiosSecure.post("/applications", applicationData);
+
+      if (res.data.inertedId) {
+        toast.success(`Job Application Successfull`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    // console.log("Submitting:", applicationData);
 
     onOpenChange(false); // close modal
   };
@@ -40,8 +55,11 @@ const ApplyModal = ({ open, onOpenChange, job, user, profile }) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Apply for {job?.title || "Job"}</DialogTitle>
+          <DialogTitle>Apply for {job?.jobTitle || "Job"}</DialogTitle>
         </DialogHeader>
+        <DialogDescription>
+          Submit your application with your resume and a cover letter.
+        </DialogDescription>
 
         {/* Name */}
         <input

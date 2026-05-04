@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
@@ -17,6 +18,10 @@ const AuthModal = ({ open, onOpenChange }) => {
         <DialogHeader>
           <DialogTitle>Login Required</DialogTitle>
         </DialogHeader>
+
+        <DialogDescription>
+          You need to login or register before applying.
+        </DialogDescription>
 
         <p className="text-gray-500 text-sm">
           Please login or register to apply for this job.

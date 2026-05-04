@@ -38,14 +38,12 @@ const Register = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-
     if (!file) return;
 
     if (file.size > 2 * 1024 * 1024) {
       setFileError("File must be less than 2MB");
       return;
     }
-
     setFileError("");
 
     const previewURL = URL.createObjectURL(file);
@@ -149,9 +147,9 @@ const Register = () => {
   });
 
   return (
-    <div className="w-full p-6 md:p-8 lg:p-10">
+    <div className="w-full p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-3">
         <h1 className="text-3xl md:text-4xl font-bold text-[#0e2c4e] tracking-tight">
           Join Dev Hire
         </h1>
@@ -160,14 +158,14 @@ const Register = () => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(handleRegister)} className="space-y-6">
+      <form onSubmit={handleSubmit(handleRegister)} className="space-y-3">
         {/* Profile Photo */}
         <div className="flex flex-col items-center">
           <label className="block mb-3 text-[#0e2c4e] font-semibold text-lg">
             Profile Photo
           </label>
 
-          <div className="relative w-28 h-28 md:w-32 md:h-32">
+          <div className="relative w-20 h-20 md:w-25 md:h-25">
             {preview ? (
               <>
                 <img
@@ -229,7 +227,7 @@ const Register = () => {
             type="text"
             placeholder="Enter your name"
             {...register("name", { required: "Name is required" })}
-            className="w-full px-5 py-4 border border-[#0e2c4e]/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0e2c4e] bg-white text-[#0e2c4e] placeholder:text-[#0e2c4e]/40"
+            className="w-full px-3 py-2 border border-[#0e2c4e]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0e2c4e] bg-white text-[#0e2c4e] placeholder:text-[#0e2c4e]/40"
           />
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
@@ -245,7 +243,7 @@ const Register = () => {
             type="email"
             placeholder="you@email.com"
             {...register("email", { required: "Email is required" })}
-            className="w-full px-5 py-4 border border-[#0e2c4e]/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0e2c4e] bg-white text-[#0e2c4e] placeholder:text-[#0e2c4e]/40"
+            className="w-full px-3 py-2 border border-[#0e2c4e]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0e2c4e] bg-white text-[#0e2c4e] placeholder:text-[#0e2c4e]/40"
           />
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
@@ -267,7 +265,7 @@ const Register = () => {
                 message: "Password must be at least 6 characters",
               },
             })}
-            className="w-full px-5 py-4 border border-[#0e2c4e]/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0e2c4e] bg-white text-[#0e2c4e] placeholder:text-[#0e2c4e]/40"
+            className="w-full px-3 py-2 border border-[#0e2c4e]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0e2c4e] bg-white text-[#0e2c4e] placeholder:text-[#0e2c4e]/40"
           />
           <span
             className="absolute right-5 top-11 cursor-pointer text-[#0e2c4e]/60 hover:text-[#0e2c4e]"
@@ -289,7 +287,7 @@ const Register = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-4 bg-[#0e2c4e] hover:bg-[#1a4b82] text-white font-semibold text-lg rounded-2xl transition-all duration-200 flex items-center justify-center shadow-lg disabled:opacity-70"
+          className="w-full py-2 bg-[#0e2c4e] hover:bg-[#1a4b82] text-white font-semibold text-lg rounded-xl transition-all duration-200 flex items-center justify-center shadow-lg disabled:opacity-70"
         >
           {isSubmitting ? (
             <span className="animate-spin">
@@ -302,12 +300,12 @@ const Register = () => {
       </form>
 
       {/* Social Login */}
-      <div className="mt-8 border-t border-gray-200 pt-6">
+      <div className="mt-4 border-t border-gray-200">
         <SocialLogin />
       </div>
 
       {/* Login Link */}
-      <div className="text-center mt-8">
+      <div className="text-center mt-3">
         <p className="text-[#0e2c4e]/70 text-base">
           Already have an account?{" "}
           <Link

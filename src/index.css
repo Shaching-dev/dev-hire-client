@@ -134,16 +134,4 @@
   }
 }
 
-.ProseMirror {
-  outline: none;
-}
 
-.ProseMirror h2 {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.ProseMirror ul {
-  padding-left: 20px;
-  list-style: disc;
-}

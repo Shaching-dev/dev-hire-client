@@ -9,13 +9,14 @@ const AuthLayout = () => {
       className="min-h-screen w-full flex items-center justify-center relative bg-cover bg-center bg-no-repeat p-4 md:p-6 lg:p-8"
       style={{
         backgroundImage: `url(${authImage})`,
-      }}>
+      }}
+    >
       {/* Enhanced Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50 backdrop-blur-[3px]" />
 
       <div className="relative z-10 w-full max-w-lg mx-auto">
         {/* Logo */}
-        <div className="flex justify-center mb-8 md:mb-10">
+        <div className="flex justify-center mb-4 md:mb-5">
           <div className="bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-white/30">
             <Logo />
           </div>

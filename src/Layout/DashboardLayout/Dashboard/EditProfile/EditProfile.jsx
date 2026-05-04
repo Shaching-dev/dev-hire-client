@@ -110,13 +110,9 @@ const EditProfile = () => {
     setResumeFile(file);
   };
 
-  // ✅ FIX: Read from event properly and reset input value
-  //    so the same file can be re-selected after removal
   const handleResumeChange = (e) => {
     const file = e.target.files?.[0] ?? null;
 
-    // Reset the input value immediately so re-selecting the same
-    // file still fires onChange next time
     e.target.value = "";
 
     validateAndSetResume(file);
